@@ -1,0 +1,13 @@
+version: 0.0
+os: linux
+files:
+  - source: /target/petclinic.war
+    destination: /opt/bitnami/apache-tomcat/
+
+hooks:
+  ApplicationStop:
+    - location: sudo /opt/bitnami/ctlscript.sh stop tomcat
+      timeout: 300
+  ApplicationStart:
+    - location: sudo /opt/bitnami/ctlscript.sh start tomcat
+      timeout: 300
