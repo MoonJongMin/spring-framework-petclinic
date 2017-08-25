@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /target/petclinic.war
-    destination: /opt/bitnami/apache-tomcat/
+    destination: /opt/bitnami/apache-tomcat/webapps/
 
 hooks:
   ApplicationStop:
