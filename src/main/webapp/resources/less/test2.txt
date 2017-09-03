@@ -1,2 +1,0 @@
-Deploy test.
-In s3 buckdet, this saying must be viewd.
