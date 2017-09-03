@@ -1,2 +1,0 @@
-Deploy test.
-한글 처리~~
