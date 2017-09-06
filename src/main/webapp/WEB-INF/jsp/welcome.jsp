@@ -7,7 +7,7 @@
 	request.setAttribute("serverIp", serverIp);
 %>
 <petclinic:layout pageName="home">
-    <!--h2><fmt:message key="welcome"/> (Server IP is ${pageContext.request.localAddr})</h2--> <%--This always display 127.0.0.1 --%>
+    <%-- <h2><fmt:message key="welcome"/> (Server IP is ${pageContext.request.localAddr})</h2> This always display 127.0.0.1 --%>
     <h2><fmt:message key="welcome"/> (Server IP is ${requestScope["serverIp"]})</h2>
     <div class="row">
         <div class="col-md-12">

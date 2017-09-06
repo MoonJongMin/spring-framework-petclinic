@@ -15,6 +15,12 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.net.Inet4Address;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.samples.petclinic.util.log.AwsCloudWatchLogUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,9 +37,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class CrashController {
 
     @RequestMapping(value = "/oups", method = RequestMethod.GET)
-    public String triggerException() {
-        throw new RuntimeException("Expected: controller used to showcase what " +
+    public String triggerException() throws Exception {
+    		RuntimeException re = new RuntimeException("Expected: controller used to showcase what " +
             "happens when an exception is thrown");
+    		// CloudWatch logging...
+    		Map<String, String> info = new HashMap<>();
+    		info.put("date", Calendar.getInstance().getTime().toString());
+    		info.put("serverip", Inet4Address.getLocalHost().getHostAddress());
+    		info.put("message", re.getMessage());
+    		AwsCloudWatchLogUtil.putLog(info);
+    		throw re;
     }
 
 
