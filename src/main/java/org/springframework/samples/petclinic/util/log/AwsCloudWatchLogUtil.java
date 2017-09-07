@@ -30,18 +30,17 @@ public abstract class AwsCloudWatchLogUtil {
 	private static String LOG_GROUP = "mbp3ApplicationLog";
     private static String LOG_STREAM = "mbp3ApplicationLog_Stream_";
     private static ObjectMapper om = new ObjectMapper();
-
-    static {
-//    		AWSCredentialsProvider provider = InstanceProfileCredentialsProvider.getInstance();
-    		// DefaultAWSCredentialsProviderChain helps find proper CredentialProvider
-    		AWSCredentialsProvider provider = DefaultAWSCredentialsProviderChain.getInstance();
-    		AWSCredentials credential = provider.getCredentials();
-    		AWSLogsClientBuilder builder = AWSLogsClientBuilder.standard();
-    		builder.setRegion("ap-northeast-2");
-    		cloudWatchlog = builder.withCredentials(new AWSStaticCredentialsProvider(credential)).build();
-    }
     
     public static void putLog(Map<String, String> logMap) throws JsonProcessingException {
+    		// 이 부분을 매번 실행하지 않고 한번만 실행하고 사용하면 안된다. 그러면 일정 시간이 지난 후에 아래와 같은 오류가 발생한다.
+    	    // 이유는 InstanceProfile은 일정시간 동안만 유효하기 때문이다. 아래처럼 매번 생성하면 내부에서 자동 refresh된다.
+    		// The security token included in the request is expired (Service: AWSLogs; Status Code: 400; Error Code: ExpiredTokenException; Request ID: 2d9540f1-9367-11e7-b371-fd5cec78346e)
+		AWSCredentialsProvider provider = DefaultAWSCredentialsProviderChain.getInstance();
+		AWSCredentials credential = provider.getCredentials();
+		AWSLogsClientBuilder builder = AWSLogsClientBuilder.standard();
+		builder.setRegion("ap-northeast-2");
+		cloudWatchlog = builder.withCredentials(new AWSStaticCredentialsProvider(credential)).build();
+	
 		// building a put request log
         PutLogEventsRequest request = new PutLogEventsRequest();
         Calendar calendar = Calendar.getInstance();
