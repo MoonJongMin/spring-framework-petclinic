@@ -33,11 +33,11 @@
 
     <!-- Database initializer. If any of the script fails, the initialization stops. -->
     <!-- As an alternative, for embedded databases see <jdbc:embedded-database/>. -->
-    <!-- db 접속해서 데이타생성 부분 주석처리 -->
-    <!-- jdbc:initialize-database data-source="dataSource">
+    <!-- db 접속해서 데이타생성 부분 -->
+    <jdbc:initialize-database data-source="dataSource">
         <jdbc:script location="${jdbc.initLocation}"/>
         <jdbc:script location="${jdbc.dataLocation}"/>
-    </jdbc:initialize-database -->
+    </jdbc:initialize-database>
 
     <beans profile="javaee">
         <!-- JNDI DataSource for JEE environments -->
