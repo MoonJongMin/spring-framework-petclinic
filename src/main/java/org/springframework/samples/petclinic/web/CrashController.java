@@ -38,9 +38,9 @@ public class CrashController {
 
     @RequestMapping(value = "/oups", method = RequestMethod.GET)
     public String triggerException() throws Exception {
-//    		RuntimeException re = new RuntimeException("Expected: controller used to showcase what " +
-//            "happens when an exception is thrown");
-		RuntimeException re = new RuntimeException("Oops! It might be something wrong...");
+    		RuntimeException re = new RuntimeException("Expected: controller used to showcase what " +
+            "happens when an exception is thrown");
+//		RuntimeException re = new RuntimeException("Oops! It might be something wrong...");
     		// CloudWatch logging...
     		Map<String, String> info = new HashMap<>();
     		info.put("date", Calendar.getInstance().getTime().toString());
