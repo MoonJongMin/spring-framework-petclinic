@@ -25,15 +25,30 @@
     <!-- DataSource configuration for the tomcat jdbc connection pool 
     See here for more details on commons-dbcp versus tomcat-jdbc: 
     http://blog.ippon.fr/2013/03/13/improving-the-performance-of-the-spring-petclinic-sample-application-part-3-of-5/-->
-    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+    <!-- bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
           p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
           p:username="${jdbc.username}" p:password="${jdbc.password}"
           p:testOnBorrow="true"
-          p:validationQuery="SELECT 1" />
+          p:validationQuery="SELECT 1" / -->
+    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
+      	p:username="${jdbc.username}" p:password="${jdbc.password}"
+      	p:testOnBorrow="true"
+  		p:validationQuery="${jdbc.validationquery}"
+      	p:removeAbandoned="true"
+      	p:removeAbandonedTimeout="120"
+      	p:logAbandoned="true"
+      	p:testOnConnect="true"
+     	p:testWhileIdle="true"
+      	p:testOnReturn="true"
+      	p:initialSize="8"
+      	p:minIdle="8"
+      	p:validationInterval="5000"/>
 
     <!-- Database initializer. If any of the script fails, the initialization stops. -->
     <!-- As an alternative, for embedded databases see <jdbc:embedded-database/>. -->
-    <!-- db 접속해서 데이타생성, 서버 구동 시 매번 실행하더라도 테이블이 생성이 이미 되어 있으면 기존 데이터에 영향이 없음. -->
+    <!-- db 접속해서 데이타생성, 서버 구동 시 매번 실행하더라도 테이블이 생성이 이미 되어 있으면 기존 데이터에 영향이 없음.
+     단, DB가 Oracle인 경우에는 그냥 직접 db에서 생성해주고 이것 실행안하는게 더 나음. -->
     <jdbc:initialize-database data-source="dataSource">
         <jdbc:script location="${jdbc.initLocation}"/>
         <jdbc:script location="${jdbc.dataLocation}"/>

@@ -497,7 +497,8 @@
                      외부에서 설정을 해야 할 것이므로, 20170827, jmmoon -->
                 <jdbc.url>${system.property.jdbc.url}</jdbc.url>
                 <jdbc.username>${system.property.jdbc.username}</jdbc.username>
-                <jdbc.password>${system.property.jdbc.password}</jdbc.password>                
+                <jdbc.password>${system.property.jdbc.password}</jdbc.password>
+                <jdbc.validationquery>SELECT 1</jdbc.validationquery>                
             </properties>
             <dependencies>
                 <dependency>
@@ -514,9 +515,10 @@
                 <db.script>postgresql</db.script>
                 <jpa.database>POSTGRESQL</jpa.database>
                 <jdbc.driverClassName>org.postgresql.Driver</jdbc.driverClassName>
-                <jdbc.url>jdbc:postgresql://localhost:5432/petclinic</jdbc.url>
-                <jdbc.username>postgres</jdbc.username>
-                <jdbc.password>petclinic</jdbc.password>
+                <jdbc.url>${system.property.jdbc.url}</jdbc.url>
+                <jdbc.username>${system.property.jdbc.username}</jdbc.username>
+                <jdbc.password>${system.property.jdbc.password}</jdbc.password>
+                <jdbc.validationquery>SELECT 1</jdbc.validationquery>
             </properties>
             <dependencies>
                 <dependency>
@@ -525,6 +527,51 @@
                     <version>${postgresql-driver.version}</version>
                     <scope>runtime</scope>
                 </dependency>
+            </dependencies>
+        </profile>
+        <!--  add oracle profile for testing RDS oracle multi-az -->
+        <profile>
+            <id>Oracle</id>
+            <properties>
+                <db.script>oracle</db.script>
+                <jpa.database>ORACLE</jpa.database>
+                <jdbc.driverClassName>oracle.jdbc.OracleDriver</jdbc.driverClassName>
+                <jdbc.url>${system.property.jdbc.url}</jdbc.url>
+                <jdbc.username>${system.property.jdbc.username}</jdbc.username>
+                <jdbc.password>${system.property.jdbc.password}</jdbc.password>
+                <jdbc.validationquery>SELECT 1 FROM DUAL</jdbc.validationquery>
+            </properties>
+            <!-- oracle jdbc driver는 maven central에 없기 때문에 repository를 추가해 줌, 그리고 maven settings.xml에 username, password를 등록해주어야 한다. -->
+            <!-- 또한 http://central.maven.org/maven2/org/apache/maven/wagon/wagon-http/2.8/wagon-http-2.8-shaded.jar 에서 jar 다운도르 받아서 
+            MAVEN_HOME/lib/ext/ 에 넣어주어야 한다. https://docs.oracle.com/middleware/1213/core/MAVEN/config_maven_repo.htm#MAVEN9013 참고
+            Maven도 eclipse의 embedded로는 안돼서(MAVEN_HOME/lib/ext/ 가 어딘지 모르니... 직접 maven 별도로 설치하고 maven build 실행 창에서 maven runtime을
+            새로 설치한 maven으로 선택하고 해야 된다. -->
+			<repositories>
+			  <repository>
+			    <id>maven.oracle.com</id>
+			    <releases>
+			      <enabled>true</enabled>
+			    </releases>
+			    <snapshots>
+			      <enabled>false</enabled>
+			    </snapshots>
+			    <url>https://maven.oracle.com</url>
+			    <layout>default</layout>
+			  </repository>
+			</repositories>
+			<pluginRepositories>
+			  <pluginRepository>
+			    <id>maven.oracle.com</id>
+			    <url>https://maven.oracle.com</url>
+			  </pluginRepository>
+			</pluginRepositories>
+            <dependencies>
+		        <!-- Oracle JDBC driver -->
+		        <dependency>
+					<groupId>com.oracle.jdbc</groupId>
+					<artifactId>ojdbc8</artifactId>
+					<version>12.2.0.1</version>
+		        </dependency>
             </dependencies>
         </profile>
    </profiles>
