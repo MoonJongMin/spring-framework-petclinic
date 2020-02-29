@@ -1,3 +1,5 @@
+# This file is for CodeBuild
+
 version: 0.1
 
 phases:
