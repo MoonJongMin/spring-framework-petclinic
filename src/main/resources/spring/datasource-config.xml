@@ -35,6 +35,7 @@
       	p:username="${jdbc.username}" p:password="${jdbc.password}"
       	p:testOnBorrow="true"
   		p:validationQuery="${jdbc.validationquery}"
+  		p:validationQueryTimeout = "2"
       	p:removeAbandoned="true"
       	p:removeAbandonedTimeout="120"
       	p:logAbandoned="true"
