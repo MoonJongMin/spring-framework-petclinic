@@ -103,7 +103,7 @@ private String getHostname() throws Exception {
     	networkaddress.cache.ttl (DNS Cache Time priority #1) is ${requestScope["networkaddressCacheTtl"]} seconds.<br>
     	sun.net.inetaddr.ttl (DNS Cache Time priority #2) is ${requestScope["sunNetInetaddrTtl"]} seconds.<br>
     	Security Manager is ${requestScope["securityManager"]}.<br>
-    	DNS Cache time is ${requestScope["dnsCacheTime"]} seconds. It is set by ${requestScope["dnsCacheSetter"].}
+    	DNS Cache time is ${requestScope["dnsCacheTime"]} seconds. It is set by ${requestScope["dnsCacheSetter"]}.
     </div>
     <div class="row">
         <div class="col-md-12">
