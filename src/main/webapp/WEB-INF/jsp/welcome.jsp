@@ -16,6 +16,16 @@
     		serverIp = getHostname();
     }
 	request.setAttribute("serverIp", serverIp);
+	
+	// This is to check DNS cache time.
+	SecurityManager appsm = System.getSecurityManager();
+	if(appsm == null) {
+		request.setAttribute("securityManager", "null");
+	} else {
+		request.setAttribute("securityManager", appsm);
+	}
+	String dnsCacheTime = java.security.Security.getProperty("networkaddress.cache.ttl");
+	request.setAttribute("dnsCacheTime", dnsCacheTime);
 %>
 
 <%!
@@ -62,7 +72,11 @@ private String getHostname() throws Exception {
 
 <petclinic:layout pageName="home">
     <%-- <h2><fmt:message key="welcome"/> (Server IP is ${pageContext.request.localAddr})</h2> This always display 127.0.0.1 --%>
-    <h2><fmt:message key="welcome"/> (Server IP or hostname is ${requestScope["serverIp"]})</h2>
+    <div class="form-group">
+    	<fmt:message key="welcome"/> (Server IP or hostname is ${requestScope["serverIp"]})<br>
+    	Security Manager is ${requestScope["securityManager"]}<br>
+    	networkaddress.cache.ttl (DNS Cache Time) is ${requestScope["dnsCacheTime"]} seconds.
+    </div>
     <div class="row">
         <div class="col-md-12">
             <spring:url value="/resources/images/petclinic.png" htmlEscape="true" var="petsImage"/>
