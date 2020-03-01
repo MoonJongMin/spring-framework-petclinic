@@ -21,22 +21,38 @@ public class PetclinicContextListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
 		LOG.debug("ContextInitialized starting...");
+		
 		// check SecurityManager is null or not.
-		SecurityManager appsm = System.getSecurityManager();
-		if(appsm == null) {
+		SecurityManager securityManager = System.getSecurityManager();
+		if(securityManager == null) {
 			LOG.info("SecurityManager is not set.");
 		} else {
 			LOG.info("SecurityManager is set.");
 		}
-		// get DNS lookup cache time seconds
-		String dnsCacheTimeout = java.security.Security.getProperty("networkaddress.cache.ttl");
-		if(dnsCacheTimeout != null) {
-			LOG.info("DNS lookup cache time is {} seconds.", Integer.parseInt(dnsCacheTimeout));
+		
+		// DNS cache time mechanism is associated with sun.net.InetAddressCachePolicy in rt.jar.
+		// set DNS lookup Cache time with highest priority.
+//		java.security.Security.setProperty("networkaddress.cache.ttl", "5");
+		String dnsCacheSetter = null;
+		String dnsCacheTime = null;
+		String networkaddressCacheTtl = java.security.Security.getProperty("networkaddress.cache.ttl");
+		String sunNetInetaddrTtl = System.getProperty("sun.net.inetaddr.ttl");
+		
+		if(networkaddressCacheTtl != null) {
+			dnsCacheTime = networkaddressCacheTtl;
+			dnsCacheSetter = "networkaddress.cache.ttl";
+		} else if(sunNetInetaddrTtl != null) {
+			dnsCacheTime = sunNetInetaddrTtl;
+			dnsCacheSetter = "sun.net.inetaddr.ttl";
+		} else if(securityManager == null) {
+			dnsCacheTime = "30";
+			dnsCacheSetter = "no networkaddress.cache.ttl, no sun.net.inetaddr.ttl and no Security Manager";
 		} else {
-			LOG.info("DNS lookup cache time is not set.");
-			java.security.Security.setProperty("networkaddress.cache.ttl" , "5");
-			LOG.info("Now DNS lookup cache time is set to 5 seconds.");
+			dnsCacheTime = "FOREVER";
+			dnsCacheSetter = "no networkaddress.cache.ttl, no sun.net.inetaddr.ttl but Security Manager";
 		}
+		LOG.info("DNS lookup cache time is {} seconds. It is set by {}.", dnsCacheTime, dnsCacheSetter);
+		
 		LOG.debug("ContextInitialized ended.");
 	}
 
