@@ -257,6 +257,7 @@
         <finalName>petclinic</finalName>
         <resources>
             <resource>
+                <!-- maven filtering 기능을 이용해서 설정한 directory 하위의 file 들에 대해서는 빌드 시 maven의 project 하위 또는 properties 하위 tag를 key로 하는 부분을 찾아서 값으로 치환한다. -->
                 <directory>${basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>

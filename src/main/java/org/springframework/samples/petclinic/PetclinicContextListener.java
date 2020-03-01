@@ -1,5 +1,8 @@
 package org.springframework.samples.petclinic;
 
+import java.util.Enumeration;
+import java.util.Properties;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -52,8 +55,19 @@ public class PetclinicContextListener implements ServletContextListener {
 			dnsCacheSetter = "no networkaddress.cache.ttl, no sun.net.inetaddr.ttl but Security Manager";
 		}
 		LOG.info("DNS lookup cache time is {} seconds. It is set by {}.", dnsCacheTime, dnsCacheSetter);
-		
+
+//		printSystemProperties();	
 		LOG.debug("ContextInitialized ended.");
+	}
+
+	private void printSystemProperties() {
+		Properties p = System.getProperties();
+		Enumeration<Object> keys = p.keys();
+		while (keys.hasMoreElements()) {
+		    String key = (String)keys.nextElement();
+		    String value = (String)p.get(key);
+		    LOG.debug(key + ": " + value);
+		}
 	}
 
 }
