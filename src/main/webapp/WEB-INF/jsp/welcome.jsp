@@ -25,7 +25,11 @@
 		request.setAttribute("securityManager", securityManager);
 	}
 	String networkaddressCacheTtl = java.security.Security.getProperty("networkaddress.cache.ttl");
-	request.setAttribute("networkaddressCacheTtl", networkaddressCacheTtl);
+	if(networkaddressCacheTtl == null) {
+		request.setAttribute("networkaddressCacheTtl", "null");
+	} else {
+		request.setAttribute("networkaddressCacheTtl", networkaddressCacheTtl);
+	}
 	String sunNetInetaddrTtl = System.getProperty("sun.net.inetaddr.ttl");
 	if(sunNetInetaddrTtl == null) {
 		request.setAttribute("sunNetInetaddrTtl", "null");
