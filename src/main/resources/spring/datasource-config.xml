@@ -56,12 +56,20 @@
       	p:minIdle="8"
       	p:maxAge="180000"/ -->
     <!-- RDS fail-over가 잘되도록 하기위해 validationQueryTimeout(초)만 추가한 경우 -->
-    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+    <!-- bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
 		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
       	p:username="${jdbc.username}" p:password="${jdbc.password}"
       	p:testOnBorrow="true"
   		p:validationQuery="${jdbc.validationquery}"
   		p:validationQueryTimeout = "2"
+      	p:initialSize="8"
+      	p:minIdle="8"/ -->
+    <!-- validationQueryTimeout(초) 제거한 경우 -->
+    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
+      	p:username="${jdbc.username}" p:password="${jdbc.password}"
+      	p:testOnBorrow="true"
+  		p:validationQuery="${jdbc.validationquery}"
       	p:initialSize="8"
       	p:minIdle="8"/>
 
