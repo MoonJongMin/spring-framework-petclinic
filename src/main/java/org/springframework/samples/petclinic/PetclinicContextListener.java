@@ -35,7 +35,7 @@ public class PetclinicContextListener implements ServletContextListener {
 		
 		// DNS cache time mechanism is associated with sun.net.InetAddressCachePolicy in rt.jar.
 		// set DNS lookup Cache time with highest priority.
-//		java.security.Security.setProperty("networkaddress.cache.ttl", "5");
+		java.security.Security.setProperty("networkaddress.cache.ttl", "5");
 		String dnsCacheSetter = null;
 		String dnsCacheTime = null;
 		String networkaddressCacheTtl = java.security.Security.getProperty("networkaddress.cache.ttl");
