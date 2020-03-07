@@ -41,14 +41,13 @@ public class CrashController {
 //    		RuntimeException re = new RuntimeException("Expected: controller used to showcase what " +
 //            "happens when an exception is thrown");
 		RuntimeException re = new RuntimeException("Oops! It might be something wrong...");
-    		// CloudWatch logging...
-    		Map<String, String> info = new HashMap<>();
-    		info.put("date", Calendar.getInstance().getTime().toString());
-    		info.put("serverip", Inet4Address.getLocalHost().getHostAddress());
-    		info.put("message", re.getMessage());
-    		AwsCloudWatchLogUtil.putLog(info);
-    		throw re;
+		// CloudWatch logging...
+		Map<String, String> info = new HashMap<>();
+		info.put("date", Calendar.getInstance().getTime().toString());
+		info.put("serverip", Inet4Address.getLocalHost().getHostAddress());
+		info.put("message", re.getMessage());
+		AwsCloudWatchLogUtil.putLog(info);
+		throw re;
     }
-
 
 }
