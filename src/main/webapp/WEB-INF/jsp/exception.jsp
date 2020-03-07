@@ -24,6 +24,6 @@ if(exception != null) {
     <h2>Something happened...</h2>
 
     <%-- <p>${exception.message}</p> --%>
-    <p>${requestScope["errorStackTrace"]}</p>
+    <p>${errorStackTrace}</p>
 
 </petclinic:layout>

@@ -103,11 +103,11 @@ private String getHostname() throws Exception {
 <petclinic:layout pageName="home">
     <%-- <h2><fmt:message key="welcome"/> (Server IP is ${pageContext.request.localAddr})</h2> This always display 127.0.0.1 --%>
     <div class="form-group">
-    	<fmt:message key="welcome"/> (Server IP or hostname is ${requestScope["serverIp"]})<br>
-    	networkaddress.cache.ttl (DNS Cache Time priority #1) is ${requestScope["networkaddressCacheTtl"]} seconds.<br>
-    	sun.net.inetaddr.ttl (DNS Cache Time priority #2) is ${requestScope["sunNetInetaddrTtl"]} seconds.<br>
-    	Security Manager is ${requestScope["securityManager"]}.<br>
-    	DNS Cache time is ${requestScope["dnsCacheTime"]} seconds. It is set by ${requestScope["dnsCacheSetter"]}.
+    	<fmt:message key="welcome"/> (Server IP or hostname is ${serverIp})<br>
+    	networkaddress.cache.ttl (DNS Cache Time priority #1) is ${networkaddressCacheTtl} seconds.<br>
+    	sun.net.inetaddr.ttl (DNS Cache Time priority #2) is ${sunNetInetaddrTtl} seconds.<br>
+    	Security Manager is ${securityManager}.<br>
+    	DNS Cache time is ${dnsCacheTime} seconds. It is set by ${dnsCacheSetter}.
     </div>
     <div class="row">
         <div class="col-md-12">
