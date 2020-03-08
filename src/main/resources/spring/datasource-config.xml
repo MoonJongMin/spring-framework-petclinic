@@ -65,11 +65,20 @@
       	p:initialSize="8"
       	p:minIdle="8"/> -->
     <!-- validationQueryTimeout(초) 제거한 경우 -->
-    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+<!--     <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
 		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
       	p:username="${jdbc.username}" p:password="${jdbc.password}"
       	p:testOnBorrow="true"
   		p:validationQuery="${jdbc.validationquery}"
+      	p:initialSize="8"
+      	p:minIdle="8"/> -->
+    <!-- DB가 Aurora인 경우 Custom ValidatorClass를 사용해서 validation 하는 경우, read-write <=> read-only 변경 후
+    	계속 read-only로 reqeust가 가는 경우 validator에서 false 리턴해서 read-write로 넘어가도록 유도 -->
+    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
+      	p:username="${jdbc.username}" p:password="${jdbc.password}"
+      	p:testOnBorrow="true"
+  		p:validatorClassName="org.springframework.samples.petclinic.AmazonAuroraReadOnlyValidator"
       	p:initialSize="8"
       	p:minIdle="8"/>
 
