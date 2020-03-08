@@ -148,10 +148,13 @@
         See here for more details on commons-dbcp versus tomcat-jdbc:
         http://blog.ippon.fr/2013/03/13/improving-the-performance-of-the-spring-petclinic-sample-application-part-3-of-5/
     -->
+    	<!-- DB가 Aurora인 경우 Custom ValidatorClass를 사용해서 read-write <=> read-only 변경 후
+    	계속 read-only로 reqeust가 가는 경우 validator에서 false 리턴해서 read-write로 넘어가도록 유도,
+    	이를 위해서 compile time에서도 사용 -->
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-jdbc</artifactId>
-            <scope>runtime</scope>
+            <!-- <scope>runtime</scope> -->
         </dependency>
 
         <!-- Logging with SLF4J & LogBack -->
