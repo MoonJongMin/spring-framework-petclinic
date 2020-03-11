@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic;
 
+import java.security.Security;
 import java.util.Enumeration;
 import java.util.Properties;
 
@@ -10,6 +11,9 @@ import javax.servlet.annotation.WebListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sun.net.InetAddressCachePolicy;
+
+@SuppressWarnings("restriction")
 @WebListener
 public class PetclinicContextListener implements ServletContextListener {
 	
@@ -38,7 +42,7 @@ public class PetclinicContextListener implements ServletContextListener {
 //		java.security.Security.setProperty("networkaddress.cache.ttl", "5");
 		String dnsCacheSetter = null;
 		String dnsCacheTime = null;
-		String networkaddressCacheTtl = java.security.Security.getProperty("networkaddress.cache.ttl");
+		String networkaddressCacheTtl = Security.getProperty("networkaddress.cache.ttl");
 		String sunNetInetaddrTtl = System.getProperty("sun.net.inetaddr.ttl");
 		
 		if(networkaddressCacheTtl != null) {
@@ -49,12 +53,13 @@ public class PetclinicContextListener implements ServletContextListener {
 			dnsCacheSetter = "sun.net.inetaddr.ttl";
 		} else if(securityManager == null) {
 			dnsCacheTime = "30";
-			dnsCacheSetter = "no networkaddress.cache.ttl, no sun.net.inetaddr.ttl and no Security Manager";
+			dnsCacheSetter = "no networkaddress.cache.ttl, no sun.net.inetaddr.ttl, no Security Manager, but default value";
 		} else {
 			dnsCacheTime = "FOREVER";
-			dnsCacheSetter = "no networkaddress.cache.ttl, no sun.net.inetaddr.ttl but Security Manager";
+			dnsCacheSetter = "no networkaddress.cache.ttl, no sun.net.inetaddr.ttl, but Security Manager";
 		}
 		LOG.info("DNS lookup cache time is {} seconds. It is set by {}.", dnsCacheTime, dnsCacheSetter);
+		LOG.info("InetAddressCachePolicy.get() returns {} seconds.", InetAddressCachePolicy.get());
 
 //		printSystemProperties();	
 		LOG.debug("ContextInitialized ended.");

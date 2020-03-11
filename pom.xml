@@ -485,9 +485,9 @@
         </profile>
         <profile>
             <id>MySQL</id>
-            <activation>
+<!--             <activation>
                 <activeByDefault>true</activeByDefault>
-            </activation>            
+            </activation>  -->           
             <properties>
                 <db.script>mysql</db.script>
                 <jpa.database>MYSQL</jpa.database>
@@ -514,6 +514,32 @@
                     <version>${mysql-driver.version}</version>
                     <scope>runtime</scope>
                 </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>MariaDB</id>
+            <activation>
+            	<!-- maven build 시 profile 값이 없으면 default로 작동 -->
+                <activeByDefault>true</activeByDefault>
+            </activation>            
+            <properties>
+            	<!--MariaDB지만 여기는 mysql로 설정, RDS Aurora mysql에서 driver만 maria로 하는 것이므로... -->
+                <db.script>mysql</db.script>
+                <jpa.database>MYSQL</jpa.database>
+                <jdbc.driverClassName>org.mariadb.jdbc.Driver</jdbc.driverClassName>
+                <jdbc.url>${system.property.jdbc.url}</jdbc.url>
+                <jdbc.username>${system.property.jdbc.username}</jdbc.username>
+                <jdbc.password>${system.property.jdbc.password}</jdbc.password>
+                <jdbc.validationquery>SELECT 1</jdbc.validationquery>                
+            </properties>
+            <dependencies>
+				<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
+				<dependency>
+				    <groupId>org.mariadb.jdbc</groupId>
+				    <artifactId>mariadb-java-client</artifactId>
+				    <version>2.5.4</version>
+				    <scope>runtime</scope>
+				</dependency>
             </dependencies>
         </profile>
         <profile>

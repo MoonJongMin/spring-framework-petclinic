@@ -48,10 +48,10 @@
 		dnsCacheSetter = "sun.net.inetaddr.ttl";
 	} else if(securityManager == null) {
 		dnsCacheTime = "30";
-		dnsCacheSetter = "no networkaddress.cache.ttl, no sun.net.inetaddr.ttl and no Security Manager";
+		dnsCacheSetter = "no networkaddress.cache.ttl, no sun.net.inetaddr.ttl, no Security Manager, but default value";
 	} else {
 		dnsCacheTime = "FOREVER";
-		dnsCacheSetter = "no networkaddress.cache.ttl, no sun.net.inetaddr.ttl but Security Manager";
+		dnsCacheSetter = "no networkaddress.cache.ttl, no sun.net.inetaddr.ttl, but Security Manager";
 	}
 	
 	request.setAttribute("dnsCacheTime", dnsCacheTime);
