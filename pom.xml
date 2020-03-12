@@ -485,9 +485,9 @@
         </profile>
         <profile>
             <id>MySQL</id>
-<!--             <activation>
+            <activation>
                 <activeByDefault>true</activeByDefault>
-            </activation>  -->           
+            </activation>            
             <properties>
                 <db.script>mysql</db.script>
                 <jpa.database>MYSQL</jpa.database>
@@ -518,10 +518,10 @@
         </profile>
         <profile>
             <id>MariaDB</id>
-            <activation>
-            	<!-- maven build 시 profile 값이 없으면 default로 작동 -->
+            <!-- maven build 시 profile 값이 없으면 default로 작동 -->
+            <!-- <activation>
                 <activeByDefault>true</activeByDefault>
-            </activation>            
+            </activation>  -->           
             <properties>
             	<!--MariaDB지만 여기는 mysql로 설정, RDS Aurora mysql에서 driver만 maria로 하는 것이므로... -->
                 <db.script>mysql</db.script>
