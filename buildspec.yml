@@ -1,4 +1,6 @@
 # This file is for CodeBuild
+# At my MBP, I didn't use CodeBuild, I have used Jenkins for mvn build so that this is just for information
+# when using CodeBuild.
 
 version: 0.1
 

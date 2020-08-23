@@ -1,6 +1,6 @@
 # This file is for CodeDeploy
 # At my MBP, I didn't use CodeDeploy, I have used ElasticBeanstalk in the CodePipelin so that this is just for information
-# wehn using CodeDeploy.
+# when using CodeDeploy.
 
 version: 0.0
 os: linux
